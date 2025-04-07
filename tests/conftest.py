@@ -1,5 +1,6 @@
 import pytest
 
+
 @pytest.fixture
 def card_num():
     return "Введен некорректный номер карты"

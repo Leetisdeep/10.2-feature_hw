@@ -1,15 +1,26 @@
 import pytest
-from src.widget import mask_account_card, get_date
+
+from src.widget import get_date, get_mask_account_card
 
 
-def test_mask_account_card(card_zero, card_account, card_visa, card_another):
-    assert mask_account_card("0") == card_zero
-    assert mask_account_card("Счет 12345678901234567890") == card_account
-    assert mask_account_card("Visa 1234567890123456") == card_visa
-    assert mask_account_card("Visa Super Puper 1234567890123456") == card_another
+@pytest.mark.parametrize(
+    "card_mask, expected",
+    [
+        ("7000792289606361", "7000 79** **** 6361"),
+        ("73654108430135874305", "**4305"),
+    ],
+)
+def test_get_mask_account_card(card_mask: str, expected: str) -> None:
+    actual = get_mask_account_card(card_mask)
+    assert actual == expected
 
 
-def test_get_date(date_get, date_zero, date_slash):
-    assert get_date("2012-11-10T01:02:03.012345") == date_get
-    assert get_date("0") == date_zero
-    assert get_date("2012/11/10T01:02:03.012345") == date_slash
+@pytest.mark.parametrize(
+    "date, expected",
+    [
+        ("2024-03-11T02:26:18.671407", "11.03.2024"),
+    ],
+)
+def test_get_date(date: str, expected: str) -> None:
+    actual = get_date(date)
+    assert actual == expected

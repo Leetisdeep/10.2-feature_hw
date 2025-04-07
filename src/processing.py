@@ -1,20 +1,30 @@
-def filter_by_state(to_filter: list, state="EXECUTED") -> list:
-    """
-    returns only those elements of the list which state equals to given state
-    if state was not given it will be set to "EXECUTED"
-    """
-    only_states = []
-    for element in to_filter:
-        if state == element["state"]:
-            only_states.append(element)
+from typing import Dict, List
 
-    return only_states
+data_bank = [
+    {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
+    {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
+    {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
+    {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
+]
 
 
-def sort_by_date(to_sort: list, decreasing=True) -> list:
-    """
-    sorts given list by date
-    decreasing equals True if not given
-    """
-    to_sort.sort(key=lambda x: x["date"], reverse=decreasing)
-    return to_sort
+def filter_by_state(data_bank: list[dict]) -> list[dict]:
+    """Возвращает новый список словарей, содержащих только те записи, у которых значение ключа 'state' равно
+    'EXECUTED'."""
+
+    new_list = [pay for pay in data_bank if pay.get("state") == "EXECUTED"]
+    return new_list
+
+
+filtered_data = filter_by_state(data_bank)
+print(filtered_data)
+
+
+def sort_by_date(data_bank: List[Dict], descending: bool = True) -> List[Dict]:
+    """принимает список словарей и возвращает отсортированный по дате"""
+
+    return sorted(data_bank, key=lambda x: x["date"], reverse=descending)
+
+
+sorted_data = sort_by_date(data_bank)
+print(sorted_data)
