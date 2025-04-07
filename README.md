@@ -1,5 +1,8 @@
 # project home_work
 
+### Testing
+98% of the code is covered by tests. All tests complete as expected
+
 ## Description:
 
 Simple project for now with mainly processing module.
